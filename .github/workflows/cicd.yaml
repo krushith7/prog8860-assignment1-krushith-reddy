@@ -1,0 +1,20 @@
+name: assignment-1
+on:
+  push:
+    branches: [ "first-branch" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build Docker image
+      run: docker build -t task1:latest .
+    - name: Run Docker container
+      run: docker run -d --name task1-container task1:latest
+    - name: Show running Docker container
+      run: docker ps
+    - name: Stop Docker container
+      run: docker stop task1-container
